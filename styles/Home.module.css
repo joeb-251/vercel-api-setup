@@ -1,0 +1,179 @@
+.container {
+  min-height: 100vh;
+  padding: 0 1rem;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+.main {
+  padding: 4rem 0;
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  align-items: center;
+  width: 100%;
+  max-width: 800px;
+}
+
+.footer {
+  width: 100%;
+  height: 60px;
+  border-top: 1px solid #eaeaea;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.title {
+  margin: 0;
+  line-height: 1.15;
+  font-size: 2.5rem;
+  text-align: center;
+  margin-bottom: 2rem;
+}
+
+.description {
+  text-align: center;
+  margin: 1rem 0;
+  line-height: 1.5;
+  font-size: 1.2rem;
+}
+
+.section {
+  width: 100%;
+  margin-bottom: 2rem;
+  padding: 1rem;
+  border-radius: 10px;
+  background-color: #f9f9f9;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+.button {
+  background-color: #0070f3;
+  color: white;
+  border: none;
+  padding: 0.75rem 1.5rem;
+  font-size: 1rem;
+  border-radius: 4px;
+  cursor: pointer;
+  margin-top: 1rem;
+  transition: background-color 0.3s;
+}
+
+.button:hover {
+  background-color: #0051a8;
+}
+
+.button:disabled {
+  background-color: #cccccc;
+  cursor: not-allowed;
+}
+
+.responseBox {
+  margin-top: 1rem;
+  padding: 1rem;
+  border-radius: 4px;
+  border: 1px solid #eaeaea;
+  background-color: white;
+  font-size: 1rem;
+  line-height: 1.6;
+}
+
+.profileContainer {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 1rem;
+  margin: 1rem 0;
+}
+
+.profileButton {
+  padding: 0.75rem 1.25rem;
+  border: 1px solid #0070f3;
+  background-color: white;
+  color: #0070f3;
+  border-radius: 4px;
+  cursor: pointer;
+  transition: all 0.3s;
+}
+
+.profileButton:hover {
+  background-color: #f0f7ff;
+}
+
+.profileButton.selected {
+  background-color: #0070f3;
+  color: white;
+}
+
+.ratingContainer {
+  margin: 1.5rem 0;
+  width: 100%;
+}
+
+.ratingScale {
+  display: flex;
+  justify-content: space-between;
+  margin: 0.5rem 0;
+}
+
+.ratingButton {
+  width: 35px;
+  height: 35px;
+  border-radius: 50%;
+  border: 1px solid #0070f3;
+  background-color: white;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  transition: all 0.3s;
+}
+
+.ratingButton:hover {
+  background-color: #f0f7ff;
+}
+
+.ratingButton.selected {
+  background-color: #0070f3;
+  color: white;
+}
+
+.ratingLabels {
+  display: flex;
+  justify-content: space-between;
+  width: 100%;
+  font-size: 0.85rem;
+  color: #666;
+}
+
+.emailInput {
+  width: 100%;
+  padding: 0.75rem;
+  font-size: 1rem;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  margin: 1rem 0;
+}
+
+@media (max-width: 600px) {
+  .main {
+    padding: 2rem 0;
+  }
+  
+  .title {
+    font-size: 1.8rem;
+  }
+  
+  .profileContainer {
+    flex-direction: column;
+  }
+  
+  .ratingScale {
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 0.5rem;
+  }
+}

@@ -1,0 +1,17 @@
+{
+  "env": {
+    "ANTHROPIC_API_KEY": "@anthropic_api_key",
+    "SMTP_HOST": "@smtp_host",
+    "SMTP_PORT": "@smtp_port",
+    "SMTP_SECURE": "@smtp_secure",
+    "SMTP_USER": "@smtp_user",
+    "SMTP_PASSWORD": "@smtp_password",
+    "SMTP_FROM_EMAIL": "@smtp_from_email",
+    "AIRTABLE_API_KEY": "@airtable_api_key",
+    "AIRTABLE_BASE_ID": "@airtable_base_id",
+    "AIRTABLE_TABLE_ID": "@airtable_table_id"
+  },
+  "buildCommand": "next build",
+  "installCommand": "npm install",
+  "framework": "nextjs"
+}
