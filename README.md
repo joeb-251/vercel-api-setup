@@ -1,4 +1,4 @@
-# Vercel API Setup Demo
+# Vercel API Setup Demo 
 
 A Next.js application demonstrating integration with Anthropic Claude AI, SMTP email services, and Airtable database - all deployed on Vercel with serverless API routes.
 
