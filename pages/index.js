@@ -315,27 +315,31 @@ export default function Home() {
       <main className={styles.main}>
         <h1 className={styles.title}>90-Day Objectives Generator</h1>
         
-        {/* Progress indicator */}
+        {/* Progress Indicator */}
         <div className={styles.progressContainer}>
           {[1, 2, 3, 4].map(stepNum => (
             <div 
               key={stepNum}
               className={`${styles.progressStep} ${step >= stepNum ? styles.completed : ''} ${step === stepNum ? styles.current : ''}`}
             >
-              <div className={styles.stepNumber}>{stepNum}</div>
+              <div className={styles.stepCircle}>
+                {step > stepNum ? '✓' : stepNum}
+              </div>
               <div className={styles.stepLabel}>
                 {stepNum === 1 && "Generate"}
                 {stepNum === 2 && "Refine"}
                 {stepNum === 3 && "Rate"}
                 {stepNum === 4 && "Complete"}
               </div>
+              {stepNum < 4 && <div className={styles.stepConnector} />}
             </div>
           ))}
         </div>
         
-        {/* Error display */}
+        {/* Error Display */}
         {error && (
           <div className={styles.errorContainer}>
+            <div className={styles.errorIcon}>!</div>
             <p className={styles.errorMessage}>{error}</p>
             <button 
               className={styles.dismissButton}
@@ -348,30 +352,44 @@ export default function Home() {
 
         {/* Step 1: Initial Generation */}
         <div 
-          className={`${styles.section} ${step !== 1 ? styles.completedSection : ''}`}
+          className={`${styles.card} ${step !== 1 ? styles.completedCard : ''}`}
           ref={el => sectionsRef.current.step1 = el}
         >
-          <h2>Step 1: Generate Initial Objectives</h2>
-          <p className={styles.description}>
-            Get personalized 90-day objectives for a tech manager role. Our AI will suggest effective goals that can be accomplished in the next quarter.
-          </p>
+          <h2 className={styles.stepTitle}>Step 1: Generate Initial Objectives</h2>
+          
           {step === 1 ? (
-            <button 
-              className={styles.button}
-              onClick={getInitialObjectives}
-              disabled={loading}
-            >
-              {loading ? (
-                <>
-                  <span className={styles.spinner}></span>
-                  Generating...
-                </>
-              ) : 'Generate Objectives'}
-            </button>
+            <>
+              <p className={styles.description}>
+                Get personalized 90-day objectives for a tech manager role. Our AI will suggest effective goals that can be accomplished in the next quarter.
+              </p>
+              
+              <button 
+                className={styles.primaryButton}
+                onClick={getInitialObjectives}
+                disabled={loading}
+              >
+                {loading ? (
+                  <>
+                    <div className={styles.spinnerSmall}></div>
+                    Generating...
+                  </>
+                ) : 'Generate Objectives'}
+              </button>
+            </>
           ) : (
-            <div className={styles.completedStep}>
-              <span className={styles.checkmark}>✓</span>
-              <span>Initial objectives generated</span>
+            <div className={styles.completedStepSummary}>
+              <div className={styles.checkmarkIcon}>✓</div>
+              <div>
+                <p>Initial objectives generated successfully</p>
+                {initialResponse && (
+                  <button 
+                    onClick={() => document.getElementById('initialObjectives').scrollIntoView({ behavior: 'smooth' })}
+                    className={styles.viewButton}
+                  >
+                    View Objectives
+                  </button>
+                )}
+              </div>
             </div>
           )}
         </div>
@@ -379,23 +397,23 @@ export default function Home() {
         {/* Step 2: Refinement */}
         {step >= 2 && (
           <div 
-            className={`${styles.section} ${step > 2 ? styles.completedSection : ''}`}
+            className={`${styles.card} ${step > 2 ? styles.completedCard : ''}`}
             ref={el => sectionsRef.current.step2 = el}
           >
-            <h2>Step 2: Refine for Your Role</h2>
+            <h2 className={styles.stepTitle}>Step 2: Refine for Your Role</h2>
             
-            {/* Initial objectives display */}
-            <div className={styles.responseContainer}>
-              <h3>Initial Objectives</h3>
-              <div 
-                className={styles.responseBox}
-                dangerouslySetInnerHTML={{ __html: marked(initialResponse) }} 
-              />
-            </div>
-            
-            {step === 2 && (
+            {step === 2 ? (
               <>
-                <p>Select your profile to get objectives tailored to your specific role:</p>
+                <div id="initialObjectives" className={styles.responseContainer}>
+                  <h3>Initial Objectives</h3>
+                  <div 
+                    className={styles.responseBox}
+                    dangerouslySetInnerHTML={{ __html: marked(initialResponse) }} 
+                  />
+                </div>
+                
+                <p className={styles.description}>Select your profile to get objectives tailored to your specific role:</p>
+                
                 <div className={styles.profileContainer}>
                   {profiles.map(profile => (
                     <div
@@ -405,28 +423,38 @@ export default function Home() {
                     >
                       <h3>{profile.name}</h3>
                       <p>{profile.description}</p>
+                      {selectedProfile === profile.id && <div className={styles.selectedIndicator}>✓</div>}
                     </div>
                   ))}
                 </div>
+                
                 <button 
-                  className={styles.button}
+                  className={styles.primaryButton}
                   onClick={getRefinedObjectives}
                   disabled={loading || !selectedProfile}
                 >
                   {loading ? (
                     <>
-                      <span className={styles.spinner}></span>
+                      <div className={styles.spinnerSmall}></div>
                       Refining...
                     </>
                   ) : 'Refine Objectives'}
                 </button>
               </>
-            )}
-            
-            {step > 2 && (
-              <div className={styles.completedStep}>
-                <span className={styles.checkmark}>✓</span>
-                <span>Objectives refined for {profiles.find(p => p.id === selectedProfile)?.name}</span>
+            ) : (
+              <div className={styles.completedStepSummary}>
+                <div className={styles.checkmarkIcon}>✓</div>
+                <div>
+                  <p>Objectives refined for {profiles.find(p => p.id === selectedProfile)?.name}</p>
+                  {refinedResponse && (
+                    <button 
+                      onClick={() => document.getElementById('refinedObjectives').scrollIntoView({ behavior: 'smooth' })}
+                      className={styles.viewButton}
+                    >
+                      View Refined Objectives
+                    </button>
+                  )}
+                </div>
               </div>
             )}
           </div>
@@ -435,45 +463,47 @@ export default function Home() {
         {/* Step 3: Ratings */}
         {step >= 3 && (
           <div 
-            className={`${styles.section} ${step > 3 ? styles.completedSection : ''}`}
+            className={`${styles.card} ${step > 3 ? styles.completedCard : ''}`}
             ref={el => sectionsRef.current.step3 = el}
           >
-            <h2>Step 3: Rate Your Experience</h2>
+            <h2 className={styles.stepTitle}>Step 3: Rate Your Experience</h2>
             
-            {/* Refined objectives display */}
-            <div className={styles.responseContainer}>
-              <h3>Refined Objectives for {profiles.find(p => p.id === selectedProfile)?.name}</h3>
-              <div 
-                className={styles.responseBox}
-                dangerouslySetInnerHTML={{ __html: marked(refinedResponse) }} 
-              />
-            </div>
-            
-            {step === 3 && (
+            {step === 3 ? (
               <>
+                <div id="refinedObjectives" className={styles.responseContainer}>
+                  <h3>Refined Objectives for {profiles.find(p => p.id === selectedProfile)?.name}</h3>
+                  <div 
+                    className={styles.responseBox}
+                    dangerouslySetInnerHTML={{ __html: marked(refinedResponse) }} 
+                  />
+                </div>
+                
+                <p className={styles.description}>Please rate your experience with our objectives generator:</p>
+                
                 <div className={styles.ratingsContainer}>
                   {renderRatingScale(experienceRating, setExperienceRating, 'How satisfied are you with these objectives?')}
                   {renderRatingScale(recommendRating, setRecommendRating, 'Would you recommend this tool to others?')}
                 </div>
+                
                 <button 
-                  className={styles.button}
+                  className={styles.primaryButton}
                   onClick={submitRatings}
                   disabled={loading || experienceRating === 0 || recommendRating === 0}
                 >
                   {loading ? (
                     <>
-                      <span className={styles.spinner}></span>
+                      <div className={styles.spinnerSmall}></div>
                       Submitting...
                     </>
                   ) : 'Submit Ratings'}
                 </button>
               </>
-            )}
-            
-            {step > 3 && (
-              <div className={styles.completedStep}>
-                <span className={styles.checkmark}>✓</span>
-                <span>Ratings submitted: Experience {experienceRating}/10, Recommend {recommendRating}/10</span>
+            ) : (
+              <div className={styles.completedStepSummary}>
+                <div className={styles.checkmarkIcon}>✓</div>
+                <div>
+                  <p>Ratings submitted: Experience {experienceRating}/10, Recommend {recommendRating}/10</p>
+                </div>
               </div>
             )}
           </div>
@@ -482,14 +512,15 @@ export default function Home() {
         {/* Step 4: Email Report */}
         {step === 4 && (
           <div 
-            className={styles.section}
+            className={styles.card}
             ref={el => sectionsRef.current.step4 = el}
           >
-            <h2>Step 4: Get Your Personalized Report</h2>
+            <h2 className={styles.stepTitle}>Step 4: Get Your Personalized Report</h2>
             
             {!submitSuccess ? (
               <>
-                <p>Enter your email to receive a copy of your objectives:</p>
+                <p className={styles.description}>Enter your email to receive a copy of your objectives:</p>
+                
                 <div className={styles.emailInputContainer}>
                   <input 
                     type="email"
@@ -500,18 +531,19 @@ export default function Home() {
                     aria-label="Email address"
                   />
                   <button 
-                    className={styles.button}
+                    className={styles.primaryButton}
                     onClick={sendEmailReport}
                     disabled={loading || !email}
                   >
                     {loading ? (
                       <>
-                        <span className={styles.spinner}></span>
+                        <div className={styles.spinnerSmall}></div>
                         Sending...
                       </>
                     ) : 'Send Report'}
                   </button>
                 </div>
+                
                 <p className={styles.emailDisclaimer}>
                   We'll only use your email to send this report and won't share it with third parties.
                 </p>
@@ -535,7 +567,7 @@ export default function Home() {
       </main>
 
       <footer className={styles.footer}>
-        <p>Powered by Vercel API Setup Demo</p>
+        <p>Powered by Vercel API Setup Demo - v1.0</p>
         <p>© {new Date().getFullYear()} | <a href="#">Privacy Policy</a> | <a href="#">Terms of Service</a></p>
       </footer>
     </div>

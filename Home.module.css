@@ -1,92 +1,139 @@
+/* Home.module.css */
+
+/* ====== Layout Components ====== */
 .container {
-  min-height: 100vh;
+  max-width: 1200px;
+  margin: 0 auto;
   padding: 0 1rem;
+  min-height: 100vh;
   display: flex;
   flex-direction: column;
-  justify-content: center;
-  align-items: center;
+  font-family: -apple-system, BlinkMacSystemFont, Segoe UI, Roboto, Oxygen,
+    Ubuntu, Cantarell, Fira Sans, Droid Sans, Helvetica Neue, sans-serif;
 }
 
 .main {
-  padding: 4rem 0;
   flex: 1;
+  padding: 4rem 0;
   display: flex;
   flex-direction: column;
-  justify-content: flex-start;
   align-items: center;
   width: 100%;
   max-width: 800px;
+  margin: 0 auto;
 }
 
 .footer {
   width: 100%;
-  height: 60px;
   border-top: 1px solid #eaeaea;
-  display: flex;
-  justify-content: center;
-  align-items: center;
+  padding: 2rem 0;
+  text-align: center;
+  color: #718096;
+  margin-top: 3rem;
 }
 
+/* ====== Typography ====== */
 .title {
-  margin: 0;
-  line-height: 1.15;
   font-size: 2.5rem;
+  font-weight: 800;
+  line-height: 1.15;
   text-align: center;
-  margin-bottom: 2rem;
+  margin: 0 0 2rem 0;
+  color: #111;
 }
 
 .description {
   text-align: center;
-  margin: 1rem 0;
-  line-height: 1.5;
-  font-size: 1.2rem;
+  margin: 1rem 0 2rem 0;
+  line-height: 1.6;
+  font-size: 1.1rem;
+  color: #4a5568;
 }
 
-.section {
+.stepTitle {
+  font-size: 1.5rem;
+  font-weight: 700;
+  color: #111;
+  margin: 0 0 1.5rem 0;
+  padding-bottom: 0.75rem;
+  border-bottom: 2px solid #f0f0f0;
+}
+
+/* ====== Cards & Containers ====== */
+.section, .card {
   width: 100%;
   margin-bottom: 2rem;
-  padding: 1rem;
-  border-radius: 10px;
-  background-color: #f9f9f9;
-  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  padding: 2rem;
+  border-radius: 12px;
+  background-color: white;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.05), 0 10px 15px rgba(0, 0, 0, 0.03);
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
 }
 
-.button {
-  background-color: #0070f3;
-  color: white;
-  border: none;
-  padding: 0.75rem 1.5rem;
-  font-size: 1rem;
-  border-radius: 4px;
-  cursor: pointer;
-  margin-top: 1rem;
-  transition: background-color 0.3s;
-}
-
-.button:hover {
-  background-color: #0051a8;
-}
-
-.button:disabled {
-  background-color: #cccccc;
-  cursor: not-allowed;
+.section:hover, .card:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 6px 8px rgba(0, 0, 0, 0.07), 0 12px 17px rgba(0, 0, 0, 0.05);
 }
 
 .responseBox {
   margin-top: 1rem;
   padding: 1rem;
-  border-radius: 4px;
+  border-radius: 8px;
   border: 1px solid #eaeaea;
   background-color: white;
   font-size: 1rem;
   line-height: 1.6;
 }
 
-.profileContainer {
+/* ====== Buttons ====== */
+.button, .primaryButton {
+  background-color: #0070f3;
+  color: white;
+  border: none;
+  border-radius: 8px;
+  padding: 0.9rem 1.8rem;
+  font-size: 1.1rem;
+  font-weight: 600;
+  cursor: pointer;
+  margin-top: 1rem;
+  transition: background-color 0.2s, transform 0.2s;
   display: flex;
-  flex-wrap: wrap;
-  gap: 1rem;
-  margin: 1rem 0;
+  align-items: center;
+  justify-content: center;
+  box-shadow: 0 4px 6px rgba(0, 112, 243, 0.25);
+}
+
+.button:hover, .primaryButton:hover {
+  background-color: #0060df;
+  transform: translateY(-1px);
+}
+
+.button:active, .primaryButton:active {
+  transform: translateY(1px);
+}
+
+.button:disabled, .primaryButton:disabled {
+  background-color: #a0aec0;
+  cursor: not-allowed;
+  transform: none;
+  box-shadow: none;
+}
+
+.dismissButton {
+  background: none;
+  border: none;
+  color: #718096;
+  cursor: pointer;
+  font-size: 0.9rem;
+  padding: 0.25rem 0.5rem;
+  margin-left: 1rem;
+  border-radius: 4px;
+  transition: background-color 0.2s;
+}
+
+.dismissButton:hover {
+  background-color: #f7fafc;
+  color: #4a5568;
 }
 
 .profileButton {
@@ -94,7 +141,7 @@
   border: 1px solid #0070f3;
   background-color: white;
   color: #0070f3;
-  border-radius: 4px;
+  border-radius: 8px;
   cursor: pointer;
   transition: all 0.3s;
 }
@@ -108,6 +155,15 @@
   color: white;
 }
 
+/* ====== Profile Selection ====== */
+.profileContainer {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 1rem;
+  margin: 1rem 0;
+}
+
+/* ====== Rating System ====== */
 .ratingContainer {
   margin: 1.5rem 0;
   width: 100%;
@@ -149,15 +205,146 @@
   color: #666;
 }
 
+/* ====== Form Elements ====== */
 .emailInput {
   width: 100%;
   padding: 0.75rem;
   font-size: 1rem;
   border: 1px solid #ccc;
-  border-radius: 4px;
+  border-radius: 8px;
   margin: 1rem 0;
 }
 
+/* ====== Progress Indicator ====== */
+.progressContainer {
+  display: flex;
+  justify-content: center;
+  margin: 2rem 0 3rem;
+  width: 100%;
+  max-width: 700px;
+  position: relative;
+}
+
+.progressStep {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  flex: 1;
+  position: relative;
+  z-index: 1;
+}
+
+.stepCircle {
+  width: 36px;
+  height: 36px;
+  border-radius: 50%;
+  background-color: #f0f0f0;
+  border: 2px solid #ccc;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-weight: 600;
+  color: #666;
+  margin-bottom: 8px;
+  transition: all 0.3s ease;
+}
+
+.stepLabel {
+  font-size: 0.9rem;
+  color: #666;
+  text-align: center;
+  font-weight: 500;
+  transition: all 0.3s ease;
+}
+
+.stepConnector {
+  position: absolute;
+  top: 18px;
+  right: -50%;
+  width: 100%;
+  height: 2px;
+  background-color: #ccc;
+  z-index: -1;
+}
+
+/* Completed and current step styles */
+.completed .stepCircle {
+  background-color: #0070f3;
+  border-color: #0070f3;
+  color: white;
+}
+
+.completed .stepLabel {
+  color: #0070f3;
+  font-weight: 600;
+}
+
+.completed .stepConnector {
+  background-color: #0070f3;
+}
+
+.current .stepCircle {
+  border-color: #0070f3;
+  border-width: 3px;
+  box-shadow: 0 0 0 3px rgba(0, 112, 243, 0.2);
+}
+
+.current .stepLabel {
+  color: #0070f3;
+  font-weight: 600;
+}
+
+/* ====== Error Display ====== */
+.errorContainer {
+  display: flex;
+  align-items: center;
+  background-color: #fff5f5;
+  border: 1px solid #fed7d7;
+  border-radius: 8px;
+  padding: 1rem 1.5rem;
+  margin-bottom: 2rem;
+  max-width: 700px;
+  width: 100%;
+  box-shadow: 0 2px 5px rgba(0,0,0,0.05);
+}
+
+.errorIcon {
+  background-color: #fc8181;
+  color: white;
+  width: 28px;
+  height: 28px;
+  border-radius: 50%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-weight: bold;
+  margin-right: 1rem;
+  flex-shrink: 0;
+}
+
+.errorMessage {
+  flex: 1;
+  margin: 0;
+  color: #e53e3e;
+  font-weight: 500;
+}
+
+/* ====== Loading Indicators ====== */
+.spinnerSmall {
+  width: 18px;
+  height: 18px;
+  border: 3px solid rgba(255, 255, 255, 0.3);
+  border-radius: 50%;
+  border-top-color: white;
+  animation: spin 1s ease-in-out infinite;
+  margin-right: 10px;
+}
+
+@keyframes spin {
+  to { transform: rotate(360deg); }
+}
+
+/* ====== Responsive Design ====== */
 @media (max-width: 600px) {
   .main {
     padding: 2rem 0;
@@ -175,5 +362,17 @@
     flex-wrap: wrap;
     justify-content: center;
     gap: 0.5rem;
+  }
+  
+  .section, .card {
+    padding: 1.5rem;
+  }
+  
+  .progressContainer {
+    margin: 1.5rem 0 2rem;
+  }
+  
+  .stepLabel {
+    font-size: 0.8rem;
   }
 }
